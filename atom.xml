@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[JC Blog]]></title>
+  <link href="http://fullwonder.github.io/atom.xml" rel="self"/>
+  <link href="http://fullwonder.github.io/"/>
+  <updated>2015-04-01T11:08:10+08:00</updated>
+  <id>http://fullwonder.github.io/</id>
+  <author>
+    <name><![CDATA[JiangZhiChao]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[My First]]></title>
+    <link href="http://fullwonder.github.io/blog/2015/03/31/my-first/"/>
+    <updated>2015-03-31T17:45:22+08:00</updated>
+    <id>http://fullwonder.github.io/blog/2015/03/31/my-first</id>
+    <content type="html"><![CDATA[
+]]></content>
+  </entry>
+  
+</feed>
