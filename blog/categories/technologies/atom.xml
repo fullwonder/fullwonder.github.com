@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Technologies | 姜志超的博客]]></title>
   <link href="http://fullwonder.github.io/blog/categories/technologies/atom.xml" rel="self"/>
   <link href="http://fullwonder.github.io/"/>
-  <updated>2015-04-03T14:53:03+08:00</updated>
+  <updated>2015-04-03T15:00:34+08:00</updated>
   <id>http://fullwonder.github.io/</id>
   <author>
     <name><![CDATA[Jzc]]></name>
@@ -74,28 +74,37 @@
     <id>http://fullwonder.github.io/blog/2015/03/31/my-first</id>
     <content type="html"><![CDATA[<h2 id="section">博客搭建相关文章</h2>
 
-<ul>
+<ol>
   <li><a href="http://octopress.org/docs/">Octopress Documentation</a></li>
   <li><a href="http://blog.devtang.com/blog/2012/02/10/setup-blog-based-on-github/">象写程序一样写博客：搭建基于github的博客</a></li>
   <li><a href="http://blog.devtang.com/blog/2014/06/02/use-gitcafe-to-host-blog/">将博客从GitHub迁移到GitCafe</a></li>
   <li><a href="http://droidyue.com/blog/2014/06/22/fix-octopress-slow-loading-speed-issue-in-china-mainland/">解决Octopress博客访问慢的问题</a></li>
   <li><a href="http://havee.me/internet/2013-02/add-duoshuo-commemt-system-into-octopress.html">为 Octopress 添加多说评论系统</a></li>
-</ul>
+</ol>
 
 <h2 id="section-1">相关概念介绍</h2>
 
 <h3 id="ruby">Ruby</h3>
-<p><a href="https://www.ruby-lang.org/zh_cn/about/">Ruby</a>本身的特点就是简洁、易懂。Ruby可以用来做Web开发，<a href="http://rubyonrails.org/">Ruby on Rails</a>就是用Ruby写的一个开源Web框架。</p>
+
+<ol>
+  <li><a href="https://www.ruby-lang.org/zh_cn/about/">Ruby</a>本身的特点就是简洁、易懂。</li>
+  <li>Ruby可以用来做Web开发，<a href="http://rubyonrails.org/">Ruby on Rails</a>就是用Ruby写的一个开源Web框架。</li>
+</ol>
 
 <h3 id="jekyll">Jekyll</h3>
-<ul>
+
+<ol>
   <li><a href="https://github.com/jekyll/jekyll">Jekyll</a>是一款静态页面生成工具。</li>
   <li>Octopress就是使用的Jekyll生成博客网页。</li>
   <li>GitHub Pages、GitCafe Pages都支持Jekyll服务。</li>
-</ul>
+</ol>
 
 <h3 id="rake">Rake</h3>
-<p><a href="http://rake.rubyforge.org/">Rake-Ruby Make</a>可以嵌入Ruby代码的命令行任务管理工具。像rake new_post、rake generake等命令行任务都是在Rakefile中定义的。</p>
+
+<ol>
+  <li><a href="http://rake.rubyforge.org/">Rake-Ruby Make</a>可以嵌入Ruby代码的命令行任务管理工具。</li>
+  <li>像rake new_post、rake generake等命令行任务都是在Rakefile中定义的。</li>
+</ol>
 
 ]]></content>
   </entry>
