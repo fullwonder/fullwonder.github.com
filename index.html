@@ -9,8 +9,7 @@
   <meta name="author" content="Jzc">
 
   
-  <meta name="description" content="
-">
+  <meta name="description" content="UITableView的执行流程 这里指出了影响其性能的代理方法heightForRowAtIndexPath和cellForRowAtIndexPath。 初次加载UITableView的时候，首先循环调用heightForRowAtIndexPath得到每一行cell的高度； &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,7 +73,84 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2015/04/01/my-second/">My Second</a></h1>
+      <h1 class="entry-title"><a href="/blog/2015/04/03/uitableviewgun-dong-liu-chang-xing-you-hua-ji-chu/">UITableView滚动流畅性优化基础</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2015-04-03T14:30:00+08:00'><span class='date'>2015 年4 月3 日</span> <span class='time'>2:30 pm</span></time>
+        
+         
+          | <a href="/blog/2015/04/03/uitableviewgun-dong-liu-chang-xing-you-hua-ji-chu/#comments">Comments</a>
+         
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2 id="uitableview">UITableView的执行流程</h2>
+
+<p>这里指出了影响其性能的代理方法heightForRowAtIndexPath和cellForRowAtIndexPath。</p>
+
+<ol>
+  <li>
+    <p>初次加载UITableView的时候，首先循环调用heightForRowAtIndexPath得到每一行cell的高度；之后循环调用cellForRowAtIndexPath得到当前屏幕可见的cell（也就是说并不是得到全部的cell，之后在滚动UITableView的时候才再次调用cellForRowAtIndexPath）。</p>
+  </li>
+  <li>
+    <p>调用UITableView的reloadData、insertRowsAtIndexPaths、deleteRowsAtIndexPaths都会循环调用heightForRowAtIndexPath得到每一行cell的高度。</p>
+  </li>
+</ol>
+
+<h2 id="uitableview-1">影响UITableView滚动流畅性的原因</h2>
+
+<p>由上述描述可以看出，原因主要由两点。</p>
+
+<ol>
+  <li>heightForRowAtIndexPath中做了大量的计算。</li>
+  <li>cellForRowAtIndexPath中cell的组织过于复杂。</li>
+</ol>
+
+<h2 id="section">解决方案</h2>
+
+<h3 id="heightforrowatindexpath">heightForRowAtIndexPath中做了大量的计算</h3>
+
+<p>例如：当cell的高度不固定时候，传统的方式是传入那些影响高度的元素（如文字、图片）然后返回计算出高度。当然这没问题，但是当在有大量的reloadData、insertRowsAtIndexPaths、deleteRowsAtIndexPaths操作的时候就会产生大量的不必要的计算操作，影响了软件的性能。
+解决：尽可能呢让计算的复杂度为O(1)，也就是cell的高度最好是直接取出来就能用。具体实现方法就是，在UITableViewController中定义一个用来存储cell高度的数组，在异步获取到网络数据（或者其他方式获取数据）的时候就计算出cell的高度放在数组中。</p>
+
+<h3 id="cellforrowatindexpathcell">cellForRowAtIndexPath中cell的组织过于复杂</h3>
+
+<ol>
+  <li>
+    <p>重用cell，除特殊情况cell中的所有subview都应该只创建一次，之后每次都应该去刷新其数据，因此当自定义的view用在cell当中的时候需要该view提供刷新其数据的方法。</p>
+  </li>
+  <li>
+    <p>当cell中需要显示网路图片的时候，你可能会用会用UIImageView的contentMode属性以及自定义算法对图片进行压缩、裁剪处理，而这会耗掉较多资源。如果你这样的图片操作很多，你可以从网络拉去到图片之后，立即对图片进行压缩、裁剪。</p>
+  </li>
+  <li>
+    <p>如果需要更高的流畅度，你可以手动Drawing视图</p>
+  </li>
+</ol>
+
+<h2 id="section-1">小技巧</h2>
+
+<p>当你的cell的高度全部统一的时候，设置UITableView的rowHeight属性比实现heightForRowAtIndexPath方法效率会高。</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2015/04/01/my-second/">从此刻开始认真记录</a></h1>
     
     
       <p class="meta">
@@ -93,7 +169,8 @@
   </header>
 
 
-  <div class="entry-content">
+  <div class="entry-content"><p>一提到博客，就想起了2010年暑假在清华大学参加JavaWeb暑期培训班的时候，那时就意识到了自己需要记录，于是就在ITeye（那时叫Javaeye）上面创建了自己的第一个博客，开始记录自己在学习中遇到的问题，但是没有坚持下来。我在ITeye上的文章整体质量不高，总结一下共有33篇，2010年10篇，2011年19篇，2012年1篇，2013年3篇，总浏览次数45000+。2013年接触iOS一段时间后，在CocoChina上创建了自己的博客，当时主要是用来记录转载他人的文章，坚持时间也不长，大概一个月的时间，总记录了19篇，总浏览次数30000+。之后我又用过印象笔记、简书等，也都没有坚持下来。感觉自己一直想着记录，但一直没有真正的、认真的、持久的去对待它。这次自己再次决定记录，并告诫自己一定不要再重蹈覆辙，从此刻开始认真记录！</p>
+
 </div>
   
   
@@ -133,7 +210,6 @@
   <li><a href="http://blog.devtang.com/blog/2014/06/02/use-gitcafe-to-host-blog/">将博客从GitHub迁移到GitCafe</a></li>
   <li><a href="http://droidyue.com/blog/2014/06/22/fix-octopress-slow-loading-speed-issue-in-china-mainland/">解决Octopress博客访问慢的问题</a></li>
   <li><a href="http://havee.me/internet/2013-02/add-duoshuo-commemt-system-into-octopress.html">为 Octopress 添加多说评论系统</a></li>
-  <li><a href="http://msching.github.io/blog/2014/04/11/starting/">基于Github和Octopress搭建属于自己的博客</a></li>
 </ul>
 
 <h2 id="section-1">相关概念介绍</h2>
@@ -171,7 +247,11 @@
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/2015/04/01/my-second/">My Second</a>
+        <a href="/blog/2015/04/03/uitableviewgun-dong-liu-chang-xing-you-hua-ji-chu/">UITableView滚动流畅性优化基础</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/04/01/my-second/">从此刻开始认真记录</a>
       </li>
     
       <li class="post">
