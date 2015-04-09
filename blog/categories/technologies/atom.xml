@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Technologies | 姜志超的博客]]></title>
   <link href="http://fullwonder.github.io/blog/categories/technologies/atom.xml" rel="self"/>
   <link href="http://fullwonder.github.io/"/>
-  <updated>2015-04-03T17:47:00+08:00</updated>
+  <updated>2015-04-09T13:48:14+08:00</updated>
   <id>http://fullwonder.github.io/</id>
   <author>
     <name><![CDATA[Jzc]]></name>
@@ -12,6 +12,15 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[自定义控件集合]]></title>
+    <link href="http://fullwonder.github.io/blog/2015/04/09/zi-ding-yi-kong-jian-ji-he/"/>
+    <updated>2015-04-09T13:42:50+08:00</updated>
+    <id>http://fullwonder.github.io/blog/2015/04/09/zi-ding-yi-kong-jian-ji-he</id>
+    <content type="html"><![CDATA[<p>改集合主要记录了自己平时积累的一些自定义控件，详情请见<code>https://github.com/BBClass/BBClass</code></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[UITableView滚动流畅性优化基础]]></title>
@@ -80,6 +89,8 @@
   <li><a href="http://blog.devtang.com/blog/2014/06/02/use-gitcafe-to-host-blog/">将博客从GitHub迁移到GitCafe</a></li>
   <li><a href="http://droidyue.com/blog/2014/06/22/fix-octopress-slow-loading-speed-issue-in-china-mainland/">解决Octopress博客访问慢的问题</a></li>
   <li><a href="http://havee.me/internet/2013-02/add-duoshuo-commemt-system-into-octopress.html">为 Octopress 添加多说评论系统</a></li>
+  <li><a href="http://havee.me/internet/2013-01/octopress-seo.html">Octopress 的 SEO 优化</a></li>
+  <li></li>
 </ol>
 
 <h2 id="section-1">相关概念介绍</h2>
