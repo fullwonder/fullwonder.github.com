@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Technologies | 姜志超的博客]]></title>
   <link href="http://fullwonder.github.io/blog/categories/technologies/atom.xml" rel="self"/>
   <link href="http://fullwonder.github.io/"/>
-  <updated>2015-04-09T13:48:14+08:00</updated>
+  <updated>2015-04-09T13:52:42+08:00</updated>
   <id>http://fullwonder.github.io/</id>
   <author>
     <name><![CDATA[Jzc]]></name>
@@ -18,7 +18,8 @@
     <link href="http://fullwonder.github.io/blog/2015/04/09/zi-ding-yi-kong-jian-ji-he/"/>
     <updated>2015-04-09T13:42:50+08:00</updated>
     <id>http://fullwonder.github.io/blog/2015/04/09/zi-ding-yi-kong-jian-ji-he</id>
-    <content type="html"><![CDATA[<p>改集合主要记录了自己平时积累的一些自定义控件，详情请见<code>https://github.com/BBClass/BBClass</code></p>
+    <content type="html"><![CDATA[<p>改集合主要记录了自己平时积累的一些自定义控件，详情请见
+<a href="https://github.com/BBClass/BBClass">https://github.com/BBClass/BBClass</a></p>
 ]]></content>
   </entry>
   
