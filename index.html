@@ -9,7 +9,8 @@
   <meta name="author" content="Jzc">
   
   
-  <meta name="description" content="什么是App Extension Apple从iOS 8.0和OS X v10.10开始支持App Extension，它可以让开发者在当前App之外去扩展一些功能和内容。比如说，iPhone手机上自带的天气App，在通知中心的“今天”分类下显示的日期和天气就是通过App Extension实现， &hellip;">
+  <meta name="description" content="介绍 Reveal是一款功能超极给力的调试iOS App页面层次结构的工具。这个软件具体能干神马，请阅读官方网站。 部署 下载reveal.zip包，解压并将Reveal拖拽到Application目录下，之后双击RevealCracker，点击Crack完成破解。
+打开Reveal，点击Help &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -79,6 +80,56 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2015/04/13/ioskai-fa-ye-mian-diao-shi-gong-ju-reveal/">iOS开发页面调试工具Reveal</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2015-04-13T17:20:42+08:00'><span class='date'>2015 年4 月13 日</span> <span class='time'>5:20 pm</span></time>
+        
+         
+          | <a href="/blog/2015/04/13/ioskai-fa-ye-mian-diao-shi-gong-ju-reveal/#comments">Comments</a>
+         
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>介绍</h2>
+
+<p>Reveal是一款功能超极给力的调试iOS App页面层次结构的工具。这个软件具体能干神马，请阅读<a href="http://revealapp.com">官方网站</a>。</p>
+
+<h2>部署</h2>
+
+<ol>
+<li>下载<a href="http://pan.baidu.com/s/1kT7nZ5H">reveal.zip</a>包，解压并将Reveal拖拽到Application目录下，之后双击RevealCracker，点击Crack完成破解。</li>
+<li>打开Reveal，点击Help / Show Reveal Library in Finder，将Reveal.framework 拖拽到新创建的Reveal文件夹下，并将Reveal文件夹添加到工程中。</li>
+<li>点击项目工程，在Tagets下选择项目，将General下的Reveal.framework删除。</li>
+<li>继续点击Build Settings ，找到 Other Linker Flag ，在其Debug配置下添加<code>-ObjC -lz -framework Reveal</code></li>
+<li>在模拟器下运行App，你会在控制台看到<code>INFO: Reveal server started</code>证明导入成功。</li>
+<li>回到Reveal中，点击左上角选择列表按钮，就会开到你的模拟器，选择模拟器开始体验Reveal的神奇吧。</li>
+</ol>
+
+
+<p>备注：步骤3、4目的为了只在Debug时候编译Reveal.framework，在Release时候不会去编译。</p>
+
+<p>另外Xcode也集成了一个页面调试工具<a href="https://developer.apple.com/library/ios/recipes/xcode_help-debugger/using_view_debugger/using_view_debugger.html">Debugging Views</a></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -374,6 +425,10 @@ Containing App。Containing App 和 App Extension都通过文件共享方式(App
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2015/04/13/ioskai-fa-ye-mian-diao-shi-gong-ju-reveal/">iOS开发页面调试工具Reveal</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2015/04/13/app-extensions-and-apple-watch/">App Extension and WatchKit App</a>
       </li>
     
@@ -387,10 +442,6 @@ Containing App。Containing App 和 App Extension都通过文件共享方式(App
     
       <li class="post">
         <a href="/blog/2015/04/01/my-second/">从此刻开始认真记录</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/03/31/my-first/">Octopress博客搭建汇总</a>
       </li>
     
   </ul>

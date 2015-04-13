@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Technologies | 姜志超的博客]]></title>
   <link href="http://fullwonder.github.io/blog/categories/technologies/atom.xml" rel="self"/>
   <link href="http://fullwonder.github.io/"/>
-  <updated>2015-04-13T16:46:01+08:00</updated>
+  <updated>2015-04-13T18:27:00+08:00</updated>
   <id>http://fullwonder.github.io/</id>
   <author>
     <name><![CDATA[Jzc]]></name>
@@ -12,6 +12,33 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[iOS开发页面调试工具Reveal]]></title>
+    <link href="http://fullwonder.github.io/blog/2015/04/13/ioskai-fa-ye-mian-diao-shi-gong-ju-reveal/"/>
+    <updated>2015-04-13T17:20:42+08:00</updated>
+    <id>http://fullwonder.github.io/blog/2015/04/13/ioskai-fa-ye-mian-diao-shi-gong-ju-reveal</id>
+    <content type="html"><![CDATA[<h2>介绍</h2>
+
+<p>Reveal是一款功能超极给力的调试iOS App页面层次结构的工具。这个软件具体能干神马，请阅读<a href="http://revealapp.com">官方网站</a>。</p>
+
+<h2>部署</h2>
+
+<ol>
+<li>下载<a href="http://pan.baidu.com/s/1kT7nZ5H">reveal.zip</a>包，解压并将Reveal拖拽到Application目录下，之后双击RevealCracker，点击Crack完成破解。</li>
+<li>打开Reveal，点击Help / Show Reveal Library in Finder，将Reveal.framework 拖拽到新创建的Reveal文件夹下，并将Reveal文件夹添加到工程中。</li>
+<li>点击项目工程，在Tagets下选择项目，将General下的Reveal.framework删除。</li>
+<li>继续点击Build Settings ，找到 Other Linker Flag ，在其Debug配置下添加<code>-ObjC -lz -framework Reveal</code></li>
+<li>在模拟器下运行App，你会在控制台看到<code>INFO: Reveal server started</code>证明导入成功。</li>
+<li>回到Reveal中，点击左上角选择列表按钮，就会开到你的模拟器，选择模拟器开始体验Reveal的神奇吧。</li>
+</ol>
+
+
+<p>备注：步骤3、4目的为了只在Debug时候编译Reveal.framework，在Release时候不会去编译。</p>
+
+<p>另外Xcode也集成了一个页面调试工具<a href="https://developer.apple.com/library/ios/recipes/xcode_help-debugger/using_view_debugger/using_view_debugger.html">Debugging Views</a></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[App Extension and WatchKit App]]></title>
