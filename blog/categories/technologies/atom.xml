@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Technologies | 姜志超的博客]]></title>
   <link href="http://fullwonder.github.io/blog/categories/technologies/atom.xml" rel="self"/>
   <link href="http://fullwonder.github.io/"/>
-  <updated>2015-04-09T13:52:42+08:00</updated>
+  <updated>2015-04-13T16:46:01+08:00</updated>
   <id>http://fullwonder.github.io/</id>
   <author>
     <name><![CDATA[Jzc]]></name>
@@ -12,6 +12,59 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[App Extension and WatchKit App]]></title>
+    <link href="http://fullwonder.github.io/blog/2015/04/13/app-extensions-and-apple-watch/"/>
+    <updated>2015-04-13T14:04:33+08:00</updated>
+    <id>http://fullwonder.github.io/blog/2015/04/13/app-extensions-and-apple-watch</id>
+    <content type="html"><![CDATA[<h2>什么是App Extension</h2>
+
+<p>Apple从iOS 8.0和OS X v10.10开始支持App Extension，它可以让开发者在当前App之外去扩展一些功能和内容。比如说，iPhone手机上自带的天气App，在通知中心的“今天”分类下显示的日期和天气就是通过App Extension实现，如图:</p>
+
+<p><img src="http://7xik0f.com1.z0.glb.clouddn.com/IMG_2123.PNG" width="160" alt="image" />
+<img src="http://7xik0f.com1.z0.glb.clouddn.com/IMG_2124.PNG" width="160" alt="image" /></p>
+
+<h2>App Extension类型</h2>
+
+<ul>
+<li>Today：自定义通知中心“今天”分类的页面</li>
+<li>Share： 向iOS原生的分享页添加新的分享平台</li>
+<li>Action：  扩展iOS的Action功能</li>
+<li>Photo Editing：在原生相册App中编辑照片和视频</li>
+<li>Finder Sync： OS X中Finder Sync相关</li>
+<li>Document Provider： iOS中文件存储和管理相关</li>
+<li>Custom Keyboard： 在iOS系统中自定义键盘</li>
+</ul>
+
+
+<h2>App Extension生命周期</h2>
+
+<p><img src="http://7xik0f.com1.z0.glb.clouddn.com/QQ20150413-1@2x.png" width="700" alt="image" /></p>
+
+<h2>App Extension数据通信</h2>
+
+<ul>
+<li><strong>Containg App：</strong>包含1个或多个App Extension的的iOS App。例如上面的天气App。</li>
+<li><strong>Host App：</strong>供用户使用扩展的iOS App。例如上面的通知中心（通知中心可以看成是iOS中一种特殊的App）</li>
+</ul>
+
+
+<p><img src="http://7xik0f.com1.z0.glb.clouddn.com/QQ20150413-3@2x.png" width="700" alt="image" /></p>
+
+<ol>
+<li>Host app 发送一个request请求，iOS系统会在后台运行App extension进程，之后App extension负责准备数据、图像渲染计算，然后将最终得到的数据传回Host app显示。</li>
+<li>A Today Widget通过发送openURL:completionHandler请求，通知iOS系统打开
+Containing App。Containing App 和 App Extension都通过文件共享方式(App Groups)去交互。</li>
+<li>note：其他类型的app extension通过其他API向containing app发送请求，具体请查阅文档。Host app、App Extension、Containing App之间是通过进程间通信进行交互的</li>
+</ol>
+
+
+<h2>WatchKit App</h2>
+
+<p>WatchKit App实际上是一种特殊的App Extension，只不过它的Host App不是在iPhone上，而是安装在Apple Watch上。iPhone和Apple Watch是两个分离的设备，因此他们之间的数据通信就需要接触一种无线通信技术。要想使用Apple Watch，首先需要将Apple Watch与iPhone配对进行数据交互，在配对过程中iPhone需要打开Bluetooth LE和Wi-Fi，然后两者建立起一个无线通信环境，具体底层实现细节苹果并没有公开。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[自定义控件集合]]></title>
@@ -28,50 +81,43 @@
     <link href="http://fullwonder.github.io/blog/2015/04/03/uitableviewgun-dong-liu-chang-xing-you-hua-ji-chu/"/>
     <updated>2015-04-03T14:30:00+08:00</updated>
     <id>http://fullwonder.github.io/blog/2015/04/03/uitableviewgun-dong-liu-chang-xing-you-hua-ji-chu</id>
-    <content type="html"><![CDATA[<h2 id="uitableview">UITableView的执行流程</h2>
+    <content type="html"><![CDATA[<h2>UITableView的执行流程</h2>
 
 <p>这里指出了影响其性能的代理方法heightForRowAtIndexPath和cellForRowAtIndexPath。</p>
 
 <ol>
-  <li>
-    <p>初次加载UITableView的时候，首先循环调用heightForRowAtIndexPath得到每一行cell的高度；之后循环调用cellForRowAtIndexPath得到当前屏幕可见的cell（也就是说并不是得到全部的cell，之后在滚动UITableView的时候才再次调用cellForRowAtIndexPath）。</p>
-  </li>
-  <li>
-    <p>调用UITableView的reloadData、insertRowsAtIndexPaths、deleteRowsAtIndexPaths都会循环调用heightForRowAtIndexPath得到每一行cell的高度。</p>
-  </li>
+<li><p>初次加载UITableView的时候，首先循环调用heightForRowAtIndexPath得到每一行cell的高度；之后循环调用cellForRowAtIndexPath得到当前屏幕可见的cell（也就是说并不是得到全部的cell，之后在滚动UITableView的时候才再次调用cellForRowAtIndexPath）。</p></li>
+<li><p>调用UITableView的reloadData、insertRowsAtIndexPaths、deleteRowsAtIndexPaths都会循环调用heightForRowAtIndexPath得到每一行cell的高度。</p></li>
 </ol>
 
-<h2 id="uitableview-1">影响UITableView滚动流畅性的原因</h2>
+
+<h2>影响UITableView滚动流畅性的原因</h2>
 
 <p>由上述描述可以看出，原因主要由两点。</p>
 
 <ol>
-  <li>heightForRowAtIndexPath中做了大量的计算。</li>
-  <li>cellForRowAtIndexPath中cell的组织过于复杂。</li>
+<li>heightForRowAtIndexPath中做了大量的计算。</li>
+<li>cellForRowAtIndexPath中cell的组织过于复杂。</li>
 </ol>
 
-<h2 id="section">解决方案</h2>
 
-<h3 id="heightforrowatindexpath">heightForRowAtIndexPath中做了大量的计算</h3>
+<h2>解决方案</h2>
+
+<h3>heightForRowAtIndexPath中做了大量的计算</h3>
 
 <p>例如：当cell的高度不固定时候，传统的方式是传入那些影响高度的元素（如文字、图片）然后返回计算出高度。当然这没问题，但是当在有大量的reloadData、insertRowsAtIndexPaths、deleteRowsAtIndexPaths操作的时候就会产生大量的不必要的计算操作，影响了软件的性能。
 解决：尽可能呢让计算的复杂度为O(1)，也就是cell的高度最好是直接取出来就能用。具体实现方法就是，在UITableViewController中定义一个用来存储cell高度的数组，在异步获取到网络数据（或者其他方式获取数据）的时候就计算出cell的高度放在数组中。</p>
 
-<h3 id="cellforrowatindexpathcell">cellForRowAtIndexPath中cell的组织过于复杂</h3>
+<h3>cellForRowAtIndexPath中cell的组织过于复杂</h3>
 
 <ol>
-  <li>
-    <p>重用cell，除特殊情况cell中的所有subview都应该只创建一次，之后每次都应该去刷新其数据，因此当自定义的view用在cell当中的时候需要该view提供刷新其数据的方法。</p>
-  </li>
-  <li>
-    <p>当cell中需要显示网路图片的时候，你可能会用会用UIImageView的contentMode属性以及自定义算法对图片进行压缩、裁剪处理，而这会耗掉较多资源。如果你这样的图片操作很多，你可以从网络拉去到图片之后，立即对图片进行压缩、裁剪。</p>
-  </li>
-  <li>
-    <p>如果需要更高的流畅度，你可以手动Drawing视图</p>
-  </li>
+<li><p>重用cell，除特殊情况cell中的所有subview都应该只创建一次，之后每次都应该去刷新其数据，因此当自定义的view用在cell当中的时候需要该view提供刷新其数据的方法。</p></li>
+<li><p>当cell中需要显示网路图片的时候，你可能会用会用UIImageView的contentMode属性以及自定义算法对图片进行压缩、裁剪处理，而这会耗掉较多资源。如果你这样的图片操作很多，你可以从网络拉去到图片之后，立即对图片进行压缩、裁剪。</p></li>
+<li><p>如果需要更高的流畅度，你可以手动Drawing视图</p></li>
 </ol>
 
-<h2 id="section-1">小技巧</h2>
+
+<h2>小技巧</h2>
 
 <p>当你的cell的高度全部统一的时候，设置UITableView的rowHeight属性比实现heightForRowAtIndexPath方法效率会高。</p>
 ]]></content>
@@ -82,40 +128,43 @@
     <link href="http://fullwonder.github.io/blog/2015/03/31/my-first/"/>
     <updated>2015-03-31T17:45:22+08:00</updated>
     <id>http://fullwonder.github.io/blog/2015/03/31/my-first</id>
-    <content type="html"><![CDATA[<h2 id="section">博客搭建相关文章</h2>
+    <content type="html"><![CDATA[<h2>博客搭建相关文章</h2>
 
 <ol>
-  <li><a href="http://octopress.org/docs/">Octopress Documentation</a></li>
-  <li><a href="http://blog.devtang.com/blog/2012/02/10/setup-blog-based-on-github/">象写程序一样写博客：搭建基于github的博客</a></li>
-  <li><a href="http://blog.devtang.com/blog/2014/06/02/use-gitcafe-to-host-blog/">将博客从GitHub迁移到GitCafe</a></li>
-  <li><a href="http://droidyue.com/blog/2014/06/22/fix-octopress-slow-loading-speed-issue-in-china-mainland/">解决Octopress博客访问慢的问题</a></li>
-  <li><a href="http://havee.me/internet/2013-02/add-duoshuo-commemt-system-into-octopress.html">为 Octopress 添加多说评论系统</a></li>
-  <li><a href="http://havee.me/internet/2013-01/octopress-seo.html">Octopress 的 SEO 优化</a></li>
-  <li></li>
+<li><a href="http://octopress.org/docs/">Octopress Documentation</a></li>
+<li><a href="http://blog.devtang.com/blog/2012/02/10/setup-blog-based-on-github/">象写程序一样写博客：搭建基于github的博客</a></li>
+<li><a href="http://blog.devtang.com/blog/2014/06/02/use-gitcafe-to-host-blog/">将博客从GitHub迁移到GitCafe</a></li>
+<li><a href="http://droidyue.com/blog/2014/06/22/fix-octopress-slow-loading-speed-issue-in-china-mainland/">解决Octopress博客访问慢的问题</a></li>
+<li><a href="http://havee.me/internet/2013-02/add-duoshuo-commemt-system-into-octopress.html">为 Octopress 添加多说评论系统</a></li>
+<li><a href="http://havee.me/internet/2013-01/octopress-seo.html">Octopress 的 SEO 优化</a></li>
+<li></li>
 </ol>
 
-<h2 id="section-1">相关概念介绍</h2>
 
-<h3 id="ruby">Ruby</h3>
+<h2>相关概念介绍</h2>
+
+<h3>Ruby</h3>
 
 <ol>
-  <li><a href="https://www.ruby-lang.org/zh_cn/about/">Ruby</a>本身的特点就是简洁、易懂。</li>
-  <li>Ruby可以用来做Web开发，<a href="http://rubyonrails.org/">Ruby on Rails</a>就是用Ruby写的一个开源Web框架。</li>
+<li><a href="https://www.ruby-lang.org/zh_cn/about/">Ruby</a>本身的特点就是简洁、易懂。</li>
+<li>Ruby可以用来做Web开发，<a href="http://rubyonrails.org/">Ruby on Rails</a>就是用Ruby写的一个开源Web框架。</li>
 </ol>
 
-<h3 id="jekyll">Jekyll</h3>
+
+<h3>Jekyll</h3>
 
 <ol>
-  <li><a href="https://github.com/jekyll/jekyll">Jekyll</a>是一款静态页面生成工具。</li>
-  <li>Octopress就是使用的Jekyll生成博客网页。</li>
-  <li>GitHub Pages、GitCafe Pages都支持Jekyll服务。</li>
+<li><a href="https://github.com/jekyll/jekyll">Jekyll</a>是一款静态页面生成工具。</li>
+<li>Octopress就是使用的Jekyll生成博客网页。</li>
+<li>GitHub Pages、GitCafe Pages都支持Jekyll服务。</li>
 </ol>
 
-<h3 id="rake">Rake</h3>
+
+<h3>Rake</h3>
 
 <ol>
-  <li><a href="http://rake.rubyforge.org/">Rake-Ruby Make</a>可以嵌入Ruby代码的命令行任务管理工具。</li>
-  <li>像rake new_post、rake generake等命令行任务都是在Rakefile中定义的。</li>
+<li><a href="http://rake.rubyforge.org/">Rake-Ruby Make</a>可以嵌入Ruby代码的命令行任务管理工具。</li>
+<li>像rake new_post、rake generake等命令行任务都是在Rakefile中定义的。</li>
 </ol>
 
 ]]></content>
