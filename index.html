@@ -9,8 +9,15 @@
   <meta name="author" content="Jzc">
   
   
-  <meta name="description" content="介绍 Reveal是一款功能超极给力的调试iOS App页面层次结构的工具。这个软件具体能干神马，请阅读官方网站。 部署 下载reveal.zip包，解压并将Reveal拖拽到Application目录下，之后双击RevealCracker，点击Crack完成破解。
-打开Reveal，点击Help &hellip;">
+  <meta name="description" content="介绍 KVO(Key-Value Observing)在设计模式中对应观察者模式，当被观察对象的属性改变时候，会通知观察者做出处理。它的使用场景一般是，当对象的属性变化时候需要更新UI或做其他操作时。 KVO的使用以注意事项 基本使用 1
+2
+3
+4
+5
+6
+7
+// add和remove
+- ( &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -80,6 +87,401 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2015/04/14/kvoji-zhu-fen-xiang/">KVO技术分享</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2015-04-14T11:28:39+08:00'><span class='date'>2015 年4 月14 日</span> <span class='time'>11:28 am</span></time>
+        
+         
+          | <a href="/blog/2015/04/14/kvoji-zhu-fen-xiang/#comments">Comments</a>
+         
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h3>介绍</h3>
+
+<p>KVO(Key-Value Observing)在设计模式中对应观察者模式，当被观察对象的属性改变时候，会通知观察者做出处理。它的使用场景一般是，当对象的属性变化时候需要更新UI或做其他操作时。</p>
+
+<h3>KVO的使用以注意事项</h3>
+
+<h4>基本使用</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="c1">// add和remove</span>
+</span><span class='line'><span class="p">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">addObserver:</span><span class="p">(</span><span class="bp">NSObject</span> <span class="o">*</span><span class="p">)</span><span class="nv">observer</span> <span class="nf">forKeyPath:</span><span class="p">(</span><span class="bp">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">keyPath</span> <span class="nf">options:</span><span class="p">(</span><span class="n">NSKeyValueObservingOptions</span><span class="p">)</span><span class="nv">options</span> <span class="nf">context:</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="p">)</span><span class="nv">context</span><span class="p">;</span>
+</span><span class='line'><span class="p">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">removeObserver:</span><span class="p">(</span><span class="bp">NSObject</span> <span class="o">*</span><span class="p">)</span><span class="nv">observer</span> <span class="nf">forKeyPath:</span><span class="p">(</span><span class="bp">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">keyPath</span> <span class="nf">context:</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="p">)</span><span class="nv">context</span> <span class="n">NS_AVAILABLE</span><span class="p">(</span><span class="mi">10</span><span class="n">_7</span><span class="p">,</span> <span class="mi">5</span><span class="n">_0</span><span class="p">);</span>
+</span><span class='line'><span class="p">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">removeObserver:</span><span class="p">(</span><span class="bp">NSObject</span> <span class="o">*</span><span class="p">)</span><span class="nv">observer</span> <span class="nf">forKeyPath:</span><span class="p">(</span><span class="bp">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">keyPath</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// 实现监听回调方法    </span>
+</span><span class='line'><span class="p">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">observeValueForKeyPath:</span><span class="p">(</span><span class="bp">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">keyPath</span> <span class="nf">ofObject:</span><span class="p">(</span><span class="kt">id</span><span class="p">)</span><span class="nv">object</span> <span class="nf">change:</span><span class="p">(</span><span class="bp">NSDictionary</span> <span class="o">*</span><span class="p">)</span><span class="nv">change</span> <span class="nf">context:</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="p">)</span><span class="nv">context</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>参数</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="k">typedef</span> <span class="nf">NS_OPTIONS</span><span class="p">(</span><span class="bp">NSUInteger</span><span class="p">,</span> <span class="n">NSKeyValueObservingOptions</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="n">NSKeyValueObservingOptionNew</span><span class="p">,</span> <span class="c1">// change中包含属性变更后的值</span>
+</span><span class='line'>    <span class="n">NSKeyValueObservingOptionOld</span><span class="p">,</span> <span class="c1">// change中包含属性变更前的值</span>
+</span><span class='line'>    <span class="n">NSKeyValueObservingOptionInitial</span><span class="p">,</span> <span class="c1">// 属性变更前向观察者发送通知消息</span>
+</span><span class='line'>    <span class="n">NSKeyValueObservingOptionPrior</span> <span class="c1">// 属性变更前和变更后向观察者发送通知消息</span>
+</span><span class='line'><span class="p">};</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>参数context可以认为是对keyPath参数的一个补充，它是一个空指针类型，也是由注册观察者时提供。需要注意的是，在消息发送的过程中，该参数的传递使用的是弱引用，需要用户自己保存它的值。</p>
+
+<h4>注意事项</h4>
+
+<ul>
+<li>add方法是建立两个对象之间的联系，而不是两个Class之间。</li>
+<li>add操作后不要忘记remove</li>
+<li>remove时如果之前没有add这个keyPath会crash</li>
+</ul>
+
+
+<h4>KVO的优势</h4>
+
+<p>所有的代码只需要在观察者中实现，不需要在被观察者中添加任何代码，实现了观察者和被观察者的完全解藕，降低了代码的复杂度</p>
+
+<p>其他：Objective-C还提供了对集合中某个位置存储的对象进行监听的方法，如NSArray、NSSet、NSOrderedSet。</p>
+
+<h3>实现原理</h3>
+
+<ol>
+<li>当监听一个对象的属性时候，runtime 自动创建被观察对象所属类的子类，在子类中重写class方法，使其返回父类class，原对象中指向父类的isa指针指向子类。</li>
+<li>在子类中重写被观察属性的setter方法，在setter方法中调用－didChangeValueForKey:方法</li>
+<li>在－didChangeValueForKey:方法中发送通知，通知观察对象</li>
+<li>当一个property没有观察对象时候，删除其setter方法</li>
+<li>当一个对象没有任何属性被观察时候，删除其动态创建的子类，恢复到最初状态</li>
+</ol>
+
+
+<h4>图解</h4>
+
+<p><img src="http://7xik0f.com1.z0.glb.clouddn.com/QQ20150414-1@2x.png" width="500" alt="image" /></p>
+
+<h3>代码验证</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="c1">// TestClass是一个自定义类，仅有一个name属性。下面定义了两个TestClass对象</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">TestClass</span> <span class="o">*</span><span class="n">no_observer</span> <span class="o">=</span> <span class="p">[[</span><span class="n">TestClass</span> <span class="n">alloc</span><span class="p">]</span> <span class="n">init</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">TestClass</span> <span class="o">*</span><span class="n">have_observer</span> <span class="o">=</span> <span class="p">[[</span><span class="n">TestClass</span> <span class="n">alloc</span><span class="p">]</span> <span class="n">init</span><span class="p">];</span>
+</span><span class='line'><span class="n">have_observer</span><span class="p">.</span><span class="n">name</span> <span class="o">=</span> <span class="s">@&quot;init&quot;</span><span class="p">;</span>
+</span><span class='line'><span class="p">[</span><span class="n">have_observer</span> <span class="nl">addObserver</span><span class="p">:</span><span class="nb">self</span> <span class="nl">forKeyPath</span><span class="p">:</span><span class="s">@&quot;name&quot;</span> <span class="nl">options</span><span class="p">:(</span><span class="n">NSKeyValueObservingOptionNew</span><span class="o">|</span><span class="n">NSKeyValueObservingOptionOld</span><span class="p">)</span> <span class="nl">context</span><span class="p">:</span><span class="nb">nil</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// 分别获取到两个对象isa指向的Class和真实的Class</span>
+</span><span class='line'><span class="kt">Class</span> <span class="n">no_NSObject</span> <span class="o">=</span>  <span class="p">[</span><span class="n">no_observer</span> <span class="k">class</span><span class="p">];</span>
+</span><span class='line'><span class="kt">Class</span> <span class="n">no_libobj</span> <span class="o">=</span>  <span class="n">object_getClass</span><span class="p">(</span><span class="n">no_observer</span><span class="p">);</span>
+</span><span class='line'><span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;n(%@ , %@)&quot;</span><span class="p">,</span><span class="n">no_NSObject</span><span class="p">,</span><span class="n">no_libobj</span><span class="p">);</span>
+</span><span class='line'><span class="c1">// 打印结果(TestClass , TestClass)</span>
+</span><span class='line'><span class="c1">// 可以看出没有被监听的对象isa指向的Class和真实的Class为同一个</span>
+</span><span class='line'>
+</span><span class='line'><span class="kt">Class</span> <span class="n">have_NSObject</span> <span class="o">=</span>  <span class="p">[</span><span class="n">have_observer</span> <span class="k">class</span><span class="p">];</span>
+</span><span class='line'><span class="kt">Class</span> <span class="n">have_libobj</span> <span class="o">=</span>  <span class="n">object_getClass</span><span class="p">(</span><span class="n">have_observer</span><span class="p">);</span>
+</span><span class='line'><span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;(%@ , %@)&quot;</span><span class="p">,</span><span class="n">have_NSObject</span><span class="p">,</span><span class="n">have_libobj</span><span class="p">);</span>
+</span><span class='line'><span class="c1">// 打印结果(TestClass , NSKVONotifying_TestClass)</span>
+</span><span class='line'><span class="c1">// isa指向Class为NSKVONotifying_TestClass</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// isa指向的Class的实例方法</span>
+</span><span class='line'><span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;%@&quot;</span><span class="p">,[</span><span class="n">have_NSObject</span> <span class="n">instanceMethods</span><span class="p">]);</span>
+</span><span class='line'><span class="c1">// 真实的Class的实例方法</span>
+</span><span class='line'><span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;have_libobj Methods %@&quot;</span><span class="p">,[</span><span class="n">have_libobj</span> <span class="n">instanceMethods</span><span class="p">]);</span>
+</span><span class='line'><span class="cm">/* 打印结果分别为</span>
+</span><span class='line'><span class="cm">(</span>
+</span><span class='line'><span class="cm">    &quot;- (void).cxx_destruct&quot;,</span>
+</span><span class='line'><span class="cm">    &quot;- (id)name&quot;,</span>
+</span><span class='line'><span class="cm">    &quot;- (void)setName:(id)arg0 &quot;</span>
+</span><span class='line'><span class="cm">)</span>
+</span><span class='line'><span class="cm">和</span>
+</span><span class='line'><span class="cm">(</span>
+</span><span class='line'><span class="cm">    &quot;- (void)setName:(id)arg0 &quot;,</span>
+</span><span class='line'><span class="cm">    &quot;- (class)class&quot;,</span>
+</span><span class='line'><span class="cm">    &quot;- (void)dealloc&quot;,</span>
+</span><span class='line'><span class="cm">    &quot;- (BOOL)_isKVOA&quot;</span>
+</span><span class='line'><span class="cm">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="cm">可以看出被监听的TestClass对象重写了setName:和class等方法</span>
+</span><span class='line'><span class="cm">*/</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>模拟实现KVO</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="c1">//</span>
+</span><span class='line'><span class="c1">//  NSObject+CustomerKVO.h</span>
+</span><span class='line'><span class="c1">//  KVO</span>
+</span><span class='line'><span class="c1">//</span>
+</span><span class='line'><span class="c1">//  Created by jiangzhichao on 14-11-7.</span>
+</span><span class='line'><span class="c1">//  Copyright (c) 2014年 applecode. All rights reserved.</span>
+</span><span class='line'><span class="c1">//</span>
+</span><span class='line'>
+</span><span class='line'><span class="cp">#import &lt;Foundation/Foundation.h&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">@interface</span> <span class="bp">NSObject</span> <span class="nl">(CustomerKVO)</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// 注册监听对象</span>
+</span><span class='line'><span class="p">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">m_addObserver:</span><span class="p">(</span><span class="bp">NSObject</span> <span class="o">*</span><span class="p">)</span><span class="nv">observer</span> <span class="nf">forKeyPath:</span><span class="p">(</span><span class="bp">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">keyPath</span><span class="p">;</span>
+</span><span class='line'><span class="c1">// 移除监听对象</span>
+</span><span class='line'><span class="p">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">m_removeObserver:</span><span class="p">(</span><span class="bp">NSObject</span> <span class="o">*</span><span class="p">)</span><span class="nv">observer</span> <span class="nf">forKeyPath:</span><span class="p">(</span><span class="bp">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">keyPath</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// 监听回调</span>
+</span><span class='line'><span class="p">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">m_observeValueForKeyPath:</span><span class="p">(</span><span class="bp">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">keyPath</span> <span class="nf">ofObject:</span><span class="p">(</span><span class="kt">id</span><span class="p">)</span><span class="nv">object</span> <span class="nf">change:</span><span class="p">(</span><span class="bp">NSDictionary</span> <span class="o">*</span><span class="p">)</span><span class="nv">change</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// 属性改变</span>
+</span><span class='line'><span class="p">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">m_didChangeValueForKey:</span><span class="p">(</span><span class="bp">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">key</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">@end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
+<span class='line-number'>73</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="c1">//</span>
+</span><span class='line'><span class="c1">//  NSObject+CustomerKVO.m</span>
+</span><span class='line'><span class="c1">//  KVO</span>
+</span><span class='line'><span class="c1">//</span>
+</span><span class='line'><span class="c1">//  Created by jiangzhichao on 14-11-7.</span>
+</span><span class='line'><span class="c1">//  Copyright (c) 2014年 applecode. All rights reserved.</span>
+</span><span class='line'><span class="c1">//</span>
+</span><span class='line'>
+</span><span class='line'><span class="cp">#import &quot;NSObject+CustomerKVO.h&quot;</span>
+</span><span class='line'><span class="cp">#import &lt;objc/runtime.h&gt;</span>
+</span><span class='line'><span class="k">static</span> <span class="bp">NSMapTable</span> <span class="o">*</span><span class="n">map</span><span class="p">;</span>
+</span><span class='line'><span class="k">@implementation</span> <span class="bp">NSObject</span> <span class="nl">(CustomerKVO)</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">m_addObserver:</span><span class="p">(</span><span class="bp">NSObject</span> <span class="o">*</span><span class="p">)</span><span class="nv">observer</span> <span class="nf">forKeyPath:</span><span class="p">(</span><span class="bp">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">keyPath</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="c1">// 利用runtime 创建self的子类并实现相关方法（关键）</span>
+</span><span class='line'>    <span class="c1">// a.创建子类</span>
+</span><span class='line'>    <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">className</span> <span class="o">=</span> <span class="p">[[</span><span class="bp">NSString</span> <span class="nl">stringWithFormat</span><span class="p">:</span><span class="s">@&quot;NSKVONotifying_%s&quot;</span><span class="p">,</span><span class="n">object_getClassName</span><span class="p">(</span><span class="nb">self</span><span class="p">)]</span> <span class="n">UTF8String</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kt">Class</span> <span class="n">kvoSubClass</span> <span class="o">=</span> <span class="n">objc_getClass</span><span class="p">(</span><span class="n">className</span><span class="p">);</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">kvoSubClass</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="n">kvoSubClass</span> <span class="o">=</span> <span class="n">objc_allocateClassPair</span><span class="p">([</span><span class="nb">self</span> <span class="k">class</span><span class="p">],</span> <span class="n">className</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// b.重写和添加方法</span>
+</span><span class='line'>    <span class="n">Method</span> <span class="n">ori_Method</span> <span class="o">=</span>  <span class="n">class_getInstanceMethod</span><span class="p">([</span><span class="nb">self</span> <span class="k">class</span><span class="p">],</span> <span class="k">@selector</span><span class="p">(</span><span class="nl">setName</span><span class="p">:));</span>
+</span><span class='line'>    <span class="n">Method</span> <span class="n">my_Method</span> <span class="o">=</span> <span class="n">class_getInstanceMethod</span><span class="p">([</span><span class="nb">self</span> <span class="k">class</span><span class="p">],</span> <span class="k">@selector</span><span class="p">(</span><span class="nl">set_name</span><span class="p">:));</span>
+</span><span class='line'>    <span class="n">method_exchangeImplementations</span><span class="p">(</span><span class="n">ori_Method</span><span class="p">,</span> <span class="n">my_Method</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// 添加监听</span>
+</span><span class='line'>    <span class="bp">NSString</span> <span class="o">*</span><span class="n">notifykey</span> <span class="o">=</span> <span class="p">[</span><span class="bp">NSString</span> <span class="nl">stringWithFormat</span><span class="p">:</span><span class="s">@&quot;%s_%@&quot;</span><span class="p">,</span><span class="n">object_getClassName</span><span class="p">(</span><span class="nb">self</span><span class="p">),</span><span class="n">keyPath</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">[[</span><span class="bp">NSNotificationCenter</span> <span class="n">defaultCenter</span><span class="p">]</span> <span class="nl">addObserver</span><span class="p">:</span><span class="nb">self</span> <span class="nl">selector</span><span class="p">:</span><span class="k">@selector</span><span class="p">(</span><span class="nl">notificationMethod</span><span class="p">:)</span> <span class="nl">name</span><span class="p">:</span><span class="n">notifykey</span> <span class="nl">object</span><span class="p">:</span><span class="nb">nil</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">map</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="n">map</span> <span class="o">=</span> <span class="p">[[</span><span class="bp">NSMapTable</span> <span class="n">alloc</span><span class="p">]</span> <span class="n">init</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">map</span> <span class="nl">setObject</span><span class="p">:</span><span class="n">observer</span> <span class="nl">forKey</span><span class="p">:</span><span class="n">notifykey</span><span class="p">];</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">m_removeObserver:</span><span class="p">(</span><span class="bp">NSObject</span> <span class="o">*</span><span class="p">)</span><span class="nv">observer</span> <span class="nf">forKeyPath:</span><span class="p">(</span><span class="bp">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">keyPath</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="bp">NSString</span> <span class="o">*</span><span class="n">notifykey</span> <span class="o">=</span> <span class="p">[</span><span class="bp">NSString</span> <span class="nl">stringWithFormat</span><span class="p">:</span><span class="s">@&quot;%s_%@&quot;</span><span class="p">,</span><span class="n">object_getClassName</span><span class="p">(</span><span class="nb">self</span><span class="p">),</span><span class="n">keyPath</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="p">[[</span><span class="bp">NSNotificationCenter</span> <span class="n">defaultCenter</span><span class="p">]</span> <span class="nl">removeObserver</span><span class="p">:</span><span class="nb">self</span> <span class="nl">name</span><span class="p">:</span><span class="n">notifykey</span> <span class="nl">object</span><span class="p">:</span><span class="nb">nil</span><span class="p">];</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">m_didChangeValueForKey:</span><span class="p">(</span><span class="bp">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">key</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="bp">NSString</span> <span class="o">*</span><span class="n">notifykey</span> <span class="o">=</span> <span class="p">[</span><span class="bp">NSString</span> <span class="nl">stringWithFormat</span><span class="p">:</span><span class="s">@&quot;%s_%@&quot;</span><span class="p">,</span><span class="n">object_getClassName</span><span class="p">(</span><span class="nb">self</span><span class="p">),</span><span class="n">key</span><span class="p">];</span>
+</span><span class='line'>    <span class="c1">// 利用runtime 获取变量的值</span>
+</span><span class='line'>    <span class="bp">NSDictionary</span> <span class="o">*</span><span class="n">dic</span> <span class="o">=</span> <span class="l">@{</span><span class="nl">key</span> <span class="p">:</span> <span class="s">@&quot;test name&quot;</span><span class="l">}</span><span class="p">;</span>
+</span><span class='line'>    <span class="bp">NSObject</span> <span class="o">*</span><span class="n">objc</span> <span class="o">=</span> <span class="p">[</span><span class="n">map</span> <span class="nl">objectForKey</span><span class="p">:</span><span class="n">notifykey</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">[[</span><span class="bp">NSNotificationCenter</span> <span class="n">defaultCenter</span><span class="p">]</span> <span class="nl">postNotificationName</span><span class="p">:</span><span class="n">notifykey</span> <span class="nl">object</span><span class="p">:</span><span class="n">objc</span> <span class="nl">userInfo</span><span class="p">:</span><span class="n">dic</span><span class="p">];</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// 重写的set_name，这里其实应该利用runtime来实现这个方法。</span>
+</span><span class='line'><span class="p">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">set_name:</span><span class="p">(</span><span class="kt">id</span><span class="p">)</span><span class="nv">args</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="p">[</span><span class="nb">self</span> <span class="nl">m_didChangeValueForKey</span><span class="p">:</span><span class="s">@&quot;name&quot;</span><span class="p">];</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">notificationMethod:</span><span class="p">(</span><span class="bp">NSNotification</span> <span class="o">*</span><span class="p">)</span><span class="nv">notification</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="bp">NSObject</span> <span class="o">*</span><span class="n">objc</span> <span class="o">=</span> <span class="n">notification</span><span class="p">.</span><span class="n">object</span><span class="p">;</span>
+</span><span class='line'>    <span class="bp">NSDictionary</span> <span class="o">*</span><span class="n">change</span> <span class="o">=</span> <span class="n">notification</span><span class="p">.</span><span class="n">userInfo</span><span class="p">;</span>
+</span><span class='line'>    <span class="bp">NSString</span> <span class="o">*</span><span class="n">key</span> <span class="o">=</span> <span class="p">[[</span><span class="n">change</span> <span class="n">allKeys</span><span class="p">]</span> <span class="n">firstObject</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">objc</span> <span class="nl">m_observeValueForKeyPath</span><span class="p">:</span><span class="n">key</span> <span class="nl">ofObject</span><span class="p">:</span><span class="n">objc</span> <span class="nl">change</span><span class="p">:</span><span class="n">change</span><span class="p">];</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">@end</span>
+</span><span class='line'>
+</span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -425,6 +827,10 @@ Containing App。Containing App 和 App Extension都通过文件共享方式(App
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2015/04/14/kvoji-zhu-fen-xiang/">KVO技术分享</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2015/04/13/ioskai-fa-ye-mian-diao-shi-gong-ju-reveal/">iOS开发页面调试工具Reveal</a>
       </li>
     
@@ -438,10 +844,6 @@ Containing App。Containing App 和 App Extension都通过文件共享方式(App
     
       <li class="post">
         <a href="/blog/2015/04/03/uitableviewgun-dong-liu-chang-xing-you-hua-ji-chu/">UITableView滚动流畅性优化基础</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/04/01/my-second/">从此刻开始认真记录</a>
       </li>
     
   </ul>
