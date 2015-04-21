@@ -4,7 +4,7 @@
   <title><![CDATA[姜志超的博客]]></title>
   <link href="http://fullwonder.github.io/atom.xml" rel="self"/>
   <link href="http://fullwonder.github.io/"/>
-  <updated>2015-04-14T15:33:24+08:00</updated>
+  <updated>2015-04-21T16:04:54+08:00</updated>
   <id>http://fullwonder.github.io/</id>
   <author>
     <name><![CDATA[Jzc]]></name>
@@ -12,6 +12,25 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Error: ENOENT]]></title>
+    <link href="http://fullwonder.github.io/blog/2015/04/21/error-enoent/"/>
+    <updated>2015-04-21T15:44:09+08:00</updated>
+    <id>http://fullwonder.github.io/blog/2015/04/21/error-enoent</id>
+    <content type="html"><![CDATA[<p>执行<code>sudoe npm install &lt;package_name&gt; -g</code> 报错<code>npm ERR! Error: ENOENT, lstat</code></p>
+
+<p>使用下面命令可能解决你的问题</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>npm chache clean</span></code></pre></td></tr></table></div></figure>
+
+
+<p>执行这条命令将删除<code>node_modules</code>中有问题的的package</p>
+
+<p>另外，运行<a href="https://facebook.github.io/react-native/docs/getting-started.html#content">Rect Native</a>程序的时候，终端若报错<code>Error: ENOENT</code>，用上面的命令同样可以解决问题</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[KVO技术分享]]></title>

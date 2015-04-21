@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Technologies | 姜志超的博客]]></title>
   <link href="http://fullwonder.github.io/blog/categories/technologies/atom.xml" rel="self"/>
   <link href="http://fullwonder.github.io/"/>
-  <updated>2015-04-14T15:33:24+08:00</updated>
+  <updated>2015-04-21T16:04:54+08:00</updated>
   <id>http://fullwonder.github.io/</id>
   <author>
     <name><![CDATA[Jzc]]></name>
@@ -12,6 +12,24 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Error: ENOENT]]></title>
+    <link href="http://fullwonder.github.io/blog/2015/04/21/error-enoent/"/>
+    <updated>2015-04-21T15:44:09+08:00</updated>
+    <id>http://fullwonder.github.io/blog/2015/04/21/error-enoent</id>
+    <content type="html"><![CDATA[<p>执行<code>sudoe npm install &lt;package_name&gt; -g</code> 报错<code>npm ERR! Error: ENOENT, lstat</code></p>
+
+<p>使用下面命令可能解决你的问题</p>
+
+<pre><code>npm chache clean
+</code></pre>
+
+<p>执行这条命令将删除<code>node_modules</code>中有问题的的package</p>
+
+<p>另外，运行<a href="https://facebook.github.io/react-native/docs/getting-started.html#content">Rect Native</a>程序的时候，终端若报错<code>Error: ENOENT</code>，用上面的命令同样可以解决问题</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[KVO技术分享]]></title>
@@ -523,53 +541,6 @@ Containing App。Containing App 和 App Extension都通过文件共享方式(App
     <id>http://fullwonder.github.io/blog/2015/04/09/zi-ding-yi-kong-jian-ji-he</id>
     <content type="html"><![CDATA[<p>改集合主要记录了自己平时积累的一些自定义控件，详情请见
 <a href="https://github.com/BBClass/BBClass">https://github.com/BBClass/BBClass</a></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[UITableView滚动流畅性优化基础]]></title>
-    <link href="http://fullwonder.github.io/blog/2015/04/03/uitableviewgun-dong-liu-chang-xing-you-hua-ji-chu/"/>
-    <updated>2015-04-03T14:30:00+08:00</updated>
-    <id>http://fullwonder.github.io/blog/2015/04/03/uitableviewgun-dong-liu-chang-xing-you-hua-ji-chu</id>
-    <content type="html"><![CDATA[<h2>UITableView的执行流程</h2>
-
-<p>这里指出了影响其性能的代理方法heightForRowAtIndexPath和cellForRowAtIndexPath。</p>
-
-<ol>
-<li><p>初次加载UITableView的时候，首先循环调用heightForRowAtIndexPath得到每一行cell的高度；之后循环调用cellForRowAtIndexPath得到当前屏幕可见的cell（也就是说并不是得到全部的cell，之后在滚动UITableView的时候才再次调用cellForRowAtIndexPath）。</p></li>
-<li><p>调用UITableView的reloadData、insertRowsAtIndexPaths、deleteRowsAtIndexPaths都会循环调用heightForRowAtIndexPath得到每一行cell的高度。</p></li>
-</ol>
-
-
-<h2>影响UITableView滚动流畅性的原因</h2>
-
-<p>由上述描述可以看出，原因主要由两点。</p>
-
-<ol>
-<li>heightForRowAtIndexPath中做了大量的计算。</li>
-<li>cellForRowAtIndexPath中cell的组织过于复杂。</li>
-</ol>
-
-
-<h2>解决方案</h2>
-
-<h3>heightForRowAtIndexPath中做了大量的计算</h3>
-
-<p>例如：当cell的高度不固定时候，传统的方式是传入那些影响高度的元素（如文字、图片）然后返回计算出高度。当然这没问题，但是当在有大量的reloadData、insertRowsAtIndexPaths、deleteRowsAtIndexPaths操作的时候就会产生大量的不必要的计算操作，影响了软件的性能。
-解决：尽可能呢让计算的复杂度为O(1)，也就是cell的高度最好是直接取出来就能用。具体实现方法就是，在UITableViewController中定义一个用来存储cell高度的数组，在异步获取到网络数据（或者其他方式获取数据）的时候就计算出cell的高度放在数组中。</p>
-
-<h3>cellForRowAtIndexPath中cell的组织过于复杂</h3>
-
-<ol>
-<li><p>重用cell，除特殊情况cell中的所有subview都应该只创建一次，之后每次都应该去刷新其数据，因此当自定义的view用在cell当中的时候需要该view提供刷新其数据的方法。</p></li>
-<li><p>当cell中需要显示网路图片的时候，你可能会用会用UIImageView的contentMode属性以及自定义算法对图片进行压缩、裁剪处理，而这会耗掉较多资源。如果你这样的图片操作很多，你可以从网络拉去到图片之后，立即对图片进行压缩、裁剪。</p></li>
-<li><p>如果需要更高的流畅度，你可以手动Drawing视图</p></li>
-</ol>
-
-
-<h2>小技巧</h2>
-
-<p>当你的cell的高度全部统一的时候，设置UITableView的rowHeight属性比实现heightForRowAtIndexPath方法效率会高。</p>
 ]]></content>
   </entry>
   

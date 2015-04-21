@@ -5,12 +5,13 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>App Extension and WatchKit App - 姜志超的博客</title>
+  <title>Error: ENOENT - 姜志超的博客</title>
   <meta name="author" content="Jzc">
   
   
-  <meta name="description" content="什么是App Extension Apple从iOS 8.0和OS X v10.10开始支持App Extension，它可以让开发者在当前App之外去扩展一些功能和内容。比如说，iPhone手机上自带的天气App，在通知中心的“今天”分类下显示的日期和天气就是通过App Extension实现， &hellip;">
-  <meta name="keywords" content="App Extensions,WatchKit App,Apple Watch">
+  <meta name="description" content="执行sudoe npm install &lt;package_name&gt; -g 报错npm ERR! Error: ENOENT, lstat 使用下面命令可能解决你的问题 1
+npm chache clean 执行这条命令将删除node_modules中有问题的的package 另外， &hellip;">
+  <meta name="keywords" content="npm install, Error ENOENT lstat, Rect Native">
 
   <!-- http://t.co/dKP3o1e -->
   <meta name="HandheldFriendly" content="True">
@@ -18,7 +19,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://fullwonder.github.io/blog/2015/04/13/app-extensions-and-apple-watch/">
+  <link rel="canonical" href="http://fullwonder.github.io/blog/2015/04/21/error-enoent/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="姜志超的博客" type="application/atom+xml">
@@ -82,7 +83,7 @@
   
   <header>
     
-      <h1 class="entry-title">App Extension and WatchKit App</h1>
+      <h1 class="entry-title">Error: ENOENT</h1>
     
     
       <p class="meta">
@@ -91,7 +92,7 @@
 
 
 
-<time class='entry-date' datetime='2015-04-13T14:04:33+08:00'><span class='date'>2015 年4 月13 日</span> <span class='time'>2:04 pm</span></time>
+<time class='entry-date' datetime='2015-04-21T15:44:09+08:00'><span class='date'>2015 年4 月21 日</span> <span class='time'>3:44 pm</span></time>
         
          
           | <a href="#comments">Comments</a>
@@ -101,51 +102,17 @@
   </header>
 
 
-<div class="entry-content"><h2>什么是App Extension</h2>
+<div class="entry-content"><p>执行<code>sudoe npm install &lt;package_name&gt; -g</code> 报错<code>npm ERR! Error: ENOENT, lstat</code></p>
 
-<p>Apple从iOS 8.0和OS X v10.10开始支持App Extension，它可以让开发者在当前App之外去扩展一些功能和内容。比如说，iPhone手机上自带的天气App，在通知中心的“今天”分类下显示的日期和天气就是通过App Extension实现，如图:</p>
+<p>使用下面命令可能解决你的问题</p>
 
-<p><img src="http://7xik0f.com1.z0.glb.clouddn.com/IMG_2123.PNG" width="160" alt="image" />
-<img src="http://7xik0f.com1.z0.glb.clouddn.com/IMG_2124.PNG" width="160" alt="image" /></p>
-
-<h2>App Extension类型</h2>
-
-<ul>
-<li>Today：自定义通知中心“今天”分类的页面</li>
-<li>Share： 向iOS原生的分享页添加新的分享平台</li>
-<li>Action：  扩展iOS的Action功能</li>
-<li>Photo Editing：在原生相册App中编辑照片和视频</li>
-<li>Finder Sync： OS X中Finder Sync相关</li>
-<li>Document Provider： iOS中文件存储和管理相关</li>
-<li>Custom Keyboard： 在iOS系统中自定义键盘</li>
-</ul>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>npm chache clean</span></code></pre></td></tr></table></div></figure>
 
 
-<h2>App Extension生命周期</h2>
+<p>执行这条命令将删除<code>node_modules</code>中有问题的的package</p>
 
-<p><img src="http://7xik0f.com1.z0.glb.clouddn.com/QQ20150413-1@2x.png" width="700" alt="image" /></p>
-
-<h2>App Extension数据通信</h2>
-
-<ul>
-<li><strong>Containg App：</strong>包含1个或多个App Extension的的iOS App。例如上面的天气App。</li>
-<li><strong>Host App：</strong>供用户使用扩展的iOS App。例如上面的通知中心（通知中心可以看成是iOS中一种特殊的App）</li>
-</ul>
-
-
-<p><img src="http://7xik0f.com1.z0.glb.clouddn.com/QQ20150413-3@2x.png" width="700" alt="image" /></p>
-
-<ol>
-<li>Host app 发送一个request请求，iOS系统会在后台运行App extension进程，之后App extension负责准备数据、图像渲染计算，然后将最终得到的数据传回Host app显示。</li>
-<li>A Today Widget通过发送openURL:completionHandler请求，通知iOS系统打开
-Containing App。Containing App 和 App Extension都通过文件共享方式(App Groups)去交互。</li>
-<li>note：其他类型的app extension通过其他API向containing app发送请求，具体请查阅文档。Host app、App Extension、Containing App之间是通过进程间通信进行交互的</li>
-</ol>
-
-
-<h2>WatchKit App</h2>
-
-<p>WatchKit App实际上是一种特殊的App Extension，只不过它的Host App不是在iPhone上，而是安装在Apple Watch上。iPhone和Apple Watch是两个分离的设备，因此他们之间的数据通信就需要接触一种无线通信技术。要想使用Apple Watch，首先需要将Apple Watch与iPhone配对进行数据交互，在配对过程中iPhone需要打开Bluetooth LE和Wi-Fi，然后两者建立起一个无线通信环境，具体底层实现细节苹果并没有公开。</p>
+<p>另外，运行<a href="https://facebook.github.io/react-native/docs/getting-started.html#content">Rect Native</a>程序的时候，终端若报错<code>Error: ENOENT</code>，用上面的命令同样可以解决问题</p>
 </div>
 
 
@@ -161,7 +128,7 @@ Containing App。Containing App 和 App Extension都通过文件共享方式(App
 
 
 
-<time class='entry-date' datetime='2015-04-13T14:04:33+08:00'><span class='date'>2015 年4 月13 日</span> <span class='time'>2:04 pm</span></time>
+<time class='entry-date' datetime='2015-04-21T15:44:09+08:00'><span class='date'>2015 年4 月21 日</span> <span class='time'>3:44 pm</span></time>
       
 
 <span class="categories">
@@ -182,10 +149,8 @@ Containing App。Containing App 和 App Extension都通过文件共享方式(App
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2015/04/09/zi-ding-yi-kong-jian-ji-he/" title="Previous Post: 自定义控件集合">&laquo; 自定义控件集合</a>
+        <a class="basic-alignment left" href="/blog/2015/04/14/kvoji-zhu-fen-xiang/" title="Previous Post: KVO技术分享">&laquo; KVO技术分享</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2015/04/13/ioskai-fa-ye-mian-diao-shi-gong-ju-reveal/" title="Next Post: iOS开发页面调试工具Reveal">iOS开发页面调试工具Reveal &raquo;</a>
       
     </p>
   </footer>
@@ -195,7 +160,7 @@ Containing App。Containing App 和 App Extension都通过文件共享方式(App
   <section>
     <h1>Comments</h1>
     <div id="comments" aria-live="polite"><!-- Duoshuo Comment BEGIN -->
-<div class="ds-thread" data-title="App Extension and WatchKit App"></div>
+<div class="ds-thread" data-title="Error: ENOENT"></div>
 <script type="text/javascript">
   var duoshuoQuery = {short_name:"fullwonder"};
   (function() {
